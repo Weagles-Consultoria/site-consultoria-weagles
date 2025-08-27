@@ -1,0 +1,270 @@
+
+:root {
+    --cor-texto-claro: #ffffff;
+    --cor-texto-escuro: #333333;
+    --cor-fundo-escuro: #121214;
+    --cor-borda-transparente: rgba(255, 255, 255, 0.2);
+    --cor-fundo-input: rgba(0, 0, 0, 0.2);
+    --cor-botao-destaque: #e0e0e0;
+    --cor-botao-destaque-hover: #cccccc;
+    --cor-destaque: #ff9900;
+    --espacamento-medio: 16px;
+    --espacamento-grande: 32px;
+}
+
+html {
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    width: 100%;
+    background:
+        linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+        url('../image/fundo.jpg') no-repeat center center;
+    background-size: cover;
+    background-attachment: fixed;
+    font-family: 'Inter', Arial, Helvetica, sans-serif;
+    color: var(--cor-texto-claro);
+}
+
+main {
+    flex: 1;
+    padding-top: 150px; 
+    padding-bottom: var(--espacamento-grande);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: transparent;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    height: 150px;
+}
+
+header.scrolled {
+    background-color: rgba(9, 9, 10, 0.99);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.container-header {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0 50px;
+    align-items: center;
+    box-sizing: border-box;
+}
+ 
+
+.logo {
+    padding-top: 30px;
+}
+
+.logo img {
+    width: 200px;
+    height: auto;
+}
+
+.menu {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 60px;
+}
+
+.menu a {
+    text-decoration: none;
+    color: var(--cor-texto-claro);
+    font-size: 20px;
+    font-weight: 300;
+    padding-bottom: 5px;
+    border-bottom: 2px solid transparent;
+    transition: color 0.3s, border-bottom-color 0.3s;
+}
+
+.menu a:hover {
+    color: #fff;
+    border-bottom-color: white;
+}
+
+.menu a.active {
+    font-weight: 500;
+    border-bottom-color: white;
+}
+
+.btn-destaque {
+    background-color: #e0e0e0;
+    color: #333;
+    border: none;
+    padding: 13px 40px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 500;
+    flex-shrink: 0;
+    margin-left: 0;
+}
+
+.btn-destaque:hover {
+    background-color: #ccc;
+}
+
+.user-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.welcome-message {
+    color: var(--cor-texto-claro);
+    font-size: 16px;
+    font-weight: 300;
+    margin: 0;
+}
+
+.welcome-message strong {
+    font-weight: 500;
+}
+
+
+
+.form-container {
+    width: 100%;
+    max-width: 950px;
+    margin: 30px;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+
+.breadcrumb {
+    margin-bottom: var(--espacamento-grande);
+    margin-left: 17px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    font-size: 12px;
+    color: var(--cor-texto-claro);
+    position: relative;
+    z-index: 1001; 
+}
+
+.breadcrumb p {
+    margin: 0;
+}
+
+.breadcrumb a {
+    color: #b0b0b0;
+    text-decoration: none;
+    font-weight: 700;
+    transition: color 0.2s ease;
+}
+
+.breadcrumb a:hover {
+    color: var(--cor-texto-claro);
+}
+
+
+
+.formulario-consultoria {
+    background-color: rgba(15, 15, 15, 0.75); 
+    border: 1px solid rgba(255, 255, 255, 0.1); 
+    backdrop-filter: blur(10px); 
+    -webkit-backdrop-filter: blur(10px); 
+    padding: 40px 50px;
+    border-radius: 25px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    color: var(--cor-texto-claro); 
+}
+
+.formulario-consultoria .linha {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin-bottom: 25px;
+}
+
+.formulario-consultoria .campo {
+    flex: 1;
+    min-width: 250px;
+    display: flex;
+    flex-direction: column;
+}
+
+.formulario-consultoria label {
+    margin-bottom: 8px;
+    font-weight: bold;
+    font-size: 14px;
+    color: var(--cor-texto-claro); 
+}
+
+.formulario-consultoria input[type="text"],
+.formulario-consultoria input[type="email"],
+.formulario-consultoria textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--cor-borda-transparente);
+    border-radius: 8px;
+    background-color: var(--cor-fundo-input); 
+    color: var(--cor-texto-claro); 
+    font-size: 16px;
+    font-family: 'Inter', sans-serif;
+    box-sizing: border-box;
+    transition: border-color 0.3s, box-shadow 0.3s, background-color 0.3s;
+}
+
+.formulario-consultoria ::placeholder {
+    color: #a0a0a0; 
+}
+
+.formulario-consultoria input:focus,
+.formulario-consultoria textarea:focus {
+    outline: none;
+    border-color: var(--cor-texto-claro); 
+    background-color: rgba(0, 0, 0, 0.4);
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.1);
+}
+
+.erro-cnpj {
+    color: #ff8a80; 
+    font-size: 12px;
+    margin-top: 5px;
+    display: none;
+}
+
+.botao-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+
+.formulario-consultoria button[type="submit"] {
+    background-color: var(--cor-botao-destaque);
+    color: var(--cor-texto-escuro);
+    border: none;
+    padding: 15px 60px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.formulario-consultoria button[type="submit"]:hover {
+    background-color: var(--cor-botao-destaque-hover);
+}

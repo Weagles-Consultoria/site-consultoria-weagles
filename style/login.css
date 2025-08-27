@@ -1,0 +1,299 @@
+
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+
+/* Esconde o ícone do Microsoft Edge */
+input[type="password"]::-ms-reveal {
+  display: none;
+}
+
+
+.button:disabled {
+    background-color: #9CA3AF !important;
+    cursor: not-allowed !important;
+    opacity: 0.5 !important;
+}
+
+.button:disabled:hover {
+    background-color: #9CA3AF !important;
+}
+
+.error-message {
+  color: #EF4444;
+  font-size: 14px;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+/* --- Container do Modal e Fundo --- */
+.modal {
+    display: none; 
+    position: fixed;
+    z-index: 1001; 
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.modal-content {
+    background-color: #FFFFFF;
+    color: #111827;
+    margin: 0;
+    padding: 40px;
+    border: none;
+    width: 100%;
+    max-width: 420px;
+    border-radius: 24px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    font-family: 'Inter', sans-serif;
+    position: relative;
+}
+
+/* --- Botão de Fechar (X) --- */
+.fechar, .fechar-cadastro {
+    color: #9CA3AF;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    line-height: 1;
+    transition: color 0.2s ease;
+}
+
+.fechar:hover, .fechar-cadastro:hover {
+    color: #111827;
+}
+
+/* --- Título (Fazer Login / Criar Conta) --- */
+.modal-content h3 {
+    text-align: center;
+    margin-bottom: 32px;
+    font-size: 36px;
+    font-weight: 700;
+    color: #111827;
+}
+
+/* --- Campos do Formulário (Label e Input) --- */
+.grupo-formulario {
+    margin-bottom: 24px;
+}
+
+.grupo-formulario label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #374151;
+}
+
+.grupo-formulario input[type="email"],
+.grupo-formulario input[type="password"],
+.grupo-formulario input[type="text"] {
+    width: 100%;
+    padding: 12px 0;
+    border: none;
+    border-bottom: 2px solid #D1D5DB;
+    font-size: 16px;
+    background-color: transparent;
+    box-sizing: border-box;
+    outline: none;
+    color: #111827;
+    transition: border-color 0.2s ease;
+}
+
+.grupo-formulario input[type="email"]:focus,
+.grupo-formulario input[type="password"]:focus,
+.grupo-formulario input[type="text"]:focus {
+    border-bottom-color: #111827;
+}
+
+.grupo-formulario input::placeholder {
+    color: #9CA3AF;
+}
+
+.password-container {
+    position: relative;
+}
+
+.password-toggle {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #6B7280;
+    user-select: none;
+    display: flex;
+    align-items: center;
+}
+
+/* --- Opções (Lembre-me e Esqueci a Senha) --- */
+.form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px 0;
+    font-size: 14px;
+}
+
+.remember-me {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #374151;
+    cursor: pointer;
+}
+
+.remember-me input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: #111827;
+}
+
+.forgot-password {
+    color: #374151;
+    text-decoration: underline;
+    font-weight: 500;
+}
+
+.forgot-password:hover {
+    color: #111827;
+}
+
+/* --- Mensagem de Erro --- */
+.error-message {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    color: #EF4444;
+    text-align: center;
+    margin: 20px 0;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.error-icon {
+    color: #EF4444;
+    display: flex;
+    align-items: center;
+}
+
+/* --- Botão Principal --- */
+.formulario-login, .formulario-cadastro {
+    margin-top: 40px;
+}
+
+.button-entrar, .button {
+    background-color: #1b1b1b;
+    color: white;
+    border: none;
+    padding: 16px;
+    border-radius: 9999px;
+    width: 100%;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.button-entrar:hover, .button:hover {
+    background-color: #292929;
+}
+
+/* --- Rodapé do Formulário --- */
+.form-footer {
+    text-align: center;
+    margin-top: 32px;
+    font-size: 15px;
+    color: #6B7280;
+}
+
+.form-footer a {
+    color: #111827;
+    text-decoration: underline;
+    font-weight: 600;
+}
+
+.form-footer a:hover {
+    color: #000;
+}
+
+.link-secundario {
+    color: #111827;
+}
+
+
+/* =======================================================
+   CSS para Validação de Senha no Cadastro
+   ======================================================= */
+.password-requirements {
+    list-style: none;
+    padding: 0;
+    font-size: 14px;
+    
+    
+    max-height: 0;
+    overflow: hidden;
+    margin: 0 0 0 5px; /* Margem zero quando oculto */
+    transition: max-height 0.4s ease-out, margin-top 0.4s ease-out;
+}
+
+
+.password-requirements.visible {
+    max-height: 200px; /* Altura máxima suficiente para caber todos os itens */
+    margin-top: 10px; 
+}
+
+
+.password-requirements li {
+    color: #6B7280;
+    margin-bottom: 5px;
+    transition: color 0.3s ease;
+}
+
+.password-requirements li::before {
+    content: '●'; 
+    display: inline-block;
+    margin-right: 8px;
+    color: #9CA3AF;
+    transition: color 0.3s ease;
+    font-size: 12px;
+    vertical-align: middle;
+}
+
+.password-requirements li.valid {
+    color: #10B981; 
+}
+
+.password-requirements li.valid::before {
+    content: '✔'; 
+    color: #10B981;
+    font-size: 14px;
+}
+
+#password-match-msg {
+    font-size: 14px;
+    margin-top: 10px;
+    font-weight: 500;
+    text-align: left;
+}
+
+#password-match-msg.match {
+    color: #10B981;
+}
+
+#password-match-msg.no-match {
+    color: #EF4444; 
+}
