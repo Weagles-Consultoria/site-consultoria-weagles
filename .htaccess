@@ -1,0 +1,18 @@
+RewriteEngine On
+
+# 1. Se acessar a raiz pura (/), vai para home.php
+RewriteRule ^$ pages/home.php [L]
+
+# 2. Se o arquivo solicitado existe fisicamente (CSS, JS, Imagens, etc), serve ele diretamente
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteRule ^ - [L]
+
+# 3. Se o arquivo solicitado existe dentro da pasta /pages/, serve ele de lá
+# Ex: /consultoria.php -> /pages/consultoria.php
+RewriteCond %{DOCUMENT_ROOT}/pages/%{REQUEST_URI} -f
+RewriteRule ^(.*)$ pages/$1 [L]
+
+# 4. (Bônus) Permite acessar sem o .php na URL
+# Ex: /sobre_nos -> /pages/sobre_nos.php
+RewriteCond %{DOCUMENT_ROOT}/pages/$1.php -f
+RewriteRule ^([^/.]+)$ pages/$1.php [L]

@@ -2,10 +2,6 @@
 session_start();
 include("conexao.php");
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
 
 $redirect_url = isset($_POST['redirect']) && !empty($_POST['redirect']) ? $_POST['redirect'] : '../pages/home.php';
 
@@ -21,13 +17,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         exit;
     }
 
-    $stmt->bind_param("s", $email);
-    $stmt->execute();
-    $resultado = $stmt->get_result();
+    $stmt->execute([$email]);
+    $usuario = $stmt->fetch();
 
-    if ($resultado->num_rows === 1) {
-        $usuario = $resultado->fetch_assoc();
-
+    if ($usuario) {
         if (password_verify($senha, $usuario["senha"])) {
             // Credenciais corretas
             $_SESSION["usuario_id"] = $usuario["id_usuario"];
@@ -47,6 +40,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         exit;
     }
 
-    $stmt->close();
+    $stmt = null;
 }
 ?>

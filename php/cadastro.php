@@ -2,9 +2,6 @@
 session_start();
 include('conexao.php');
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
 
 $redirect_url = isset($_POST['redirect']) && !empty($_POST['redirect']) ? $_POST['redirect'] : '../pages/home.php';
 
@@ -51,16 +48,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             header("Location: " . $redirect_url . "?cadastro=erro_servidor");
             exit;
         }
-        $stmt_verificar->bind_param("s", $email_recebido);
-        $stmt_verificar->execute();
-        $stmt_verificar->store_result();
+        $stmt_verificar->execute([$email_recebido]);
 
-        if ($stmt_verificar->num_rows > 0) {
-            $stmt_verificar->close();
+        if ($stmt_verificar->fetch()) {
+            $stmt_verificar = null;
             header("Location: " . $redirect_url . "?cadastro=erro_email");
             exit;
         }
-        $stmt_verificar->close();
+        $stmt_verificar = null;
 
         
         $senha_hash = password_hash($senha_recebido, PASSWORD_DEFAULT);
@@ -72,17 +67,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             header("Location: " . $redirect_url . "?cadastro=erro_servidor");
             exit;
         }
-        $stmt_insert->bind_param("sss", $nome_recebido, $email_recebido, $senha_hash);
 
-        if ($stmt_insert->execute()) {
-            $novo_usuario_id = $conexao->insert_id;
+        if ($stmt_insert->execute([$nome_recebido, $email_recebido, $senha_hash])) {
+            $novo_usuario_id = $conexao->lastInsertId();
             $_SESSION["usuario_id"] = $novo_usuario_id;
             $_SESSION["usuario_nome"] = $nome_recebido;
-            $stmt_insert->close();
+            $stmt_insert = null;
             header("Location: " . $redirect_url . "?cadastro=sucesso");
             exit;
         } else {
-            $stmt_insert->close();
+            $stmt_insert = null;
             header("Location: " . $redirect_url . "?cadastro=erro_dados");
             exit;
         }

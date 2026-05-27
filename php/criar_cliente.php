@@ -16,8 +16,6 @@ use PHPMailer\PHPMailer\Exception;
 use Dompdf\Dompdf;
 use Dompdf\Options;
 
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
 
 session_start();
 
@@ -36,10 +34,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email_consultor_atribuido = null; 
 
     
-    $result_consultor = $conn->query("SELECT id_consultor, email FROM consultor ORDER BY RAND() LIMIT 1");
+    $result_consultor = $conn->query("SELECT id_consultor, email FROM consultor ORDER BY RANDOM() LIMIT 1");
+    $consultor = $result_consultor ? $result_consultor->fetch() : null;
     
-    if ($result_consultor && $result_consultor->num_rows > 0) {
-        $consultor = $result_consultor->fetch_assoc();
+    if ($consultor) {
         $id_consultor_atribuido = $consultor['id_consultor'];
         $email_consultor_atribuido = $consultor['email']; 
     } else {
@@ -65,19 +63,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $sql = "INSERT INTO cliente (nome_empresa, area_empresa, telefone, cnpj, dor_empresa, problema_empresa, email, id_usuario, id_consultor) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
     if (!$stmt) {
-        $response['message'] = "Erro na preparação: " . $conn->error;
+        $response['message'] = "Erro na preparação.";
         echo json_encode($response);
         exit;
     }
     
-    $stmt->bind_param(
-        "sssssssii", 
+    if ($stmt->execute([
         $dadosFormulario['razao'], $dadosFormulario['area'], $dadosFormulario['telefone'], $dadosFormulario['cnpj'], 
         $dadosFormulario['dor'], $dadosFormulario['descricao'], $dadosFormulario['email'], 
         $dadosFormulario['id_usuario'], $dadosFormulario['id_consultor']
-    );
-
-    if ($stmt->execute()) {
+    ])) {
         $response['success'] = true;
         $response['message'] = 'Dados enviados com sucesso!';
         
@@ -135,12 +130,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
         
     } else {
-        $response['message'] = "Erro ao salvar os dados: " . $stmt->error;
+        $response['message'] = "Erro ao salvar os dados.";
     }
-    $stmt->close();
+    $stmt = null;
 }
 
-$conn->close();
+$conn = null;
 
 
 echo json_encode($response);

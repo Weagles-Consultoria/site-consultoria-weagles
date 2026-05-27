@@ -11,23 +11,16 @@ if (isset($_POST['email'])) {
     
     $stmt = $conexao->prepare("SELECT id_usuario FROM usuario WHERE email = ?");
     
+    $stmt->execute([$email]);
     
-    $stmt->bind_param("s", $email); 
-    
-    
-    $stmt->execute();
-    
-
-    $result = $stmt->get_result();
-
-    if ($result->fetch_assoc()) {
+    if ($stmt->fetch()) {
         $response['exists'] = true;
     }
 
 
-    $stmt->close();
+    $stmt = null;
 }
-$conexao->close();
+$conexao = null;
 
 echo json_encode($response);
 ?>

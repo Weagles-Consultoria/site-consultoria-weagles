@@ -21,18 +21,15 @@ if (isset($_POST['email']) && isset($_POST['nova_senha'])) {
    
     $stmt = $conexao->prepare("UPDATE usuario SET senha = ? WHERE email = ?");
     
-    // bind_param para associar as variáveis
-    $stmt->bind_param("ss", $senhaHash, $email);
-
-    if ($stmt->execute()) {
+    if ($stmt->execute([$senhaHash, $email])) {
         $response['success'] = true;
         $response['message'] = 'Senha alterada com sucesso.';
     } else {
         $response['message'] = 'Erro ao atualizar a senha no banco de dados.';
     }
-    $stmt->close();
+    $stmt = null;
 }
 
-$conexao->close();
+$conexao = null;
 echo json_encode($response);
 ?>
