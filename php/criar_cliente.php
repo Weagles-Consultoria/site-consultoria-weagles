@@ -27,16 +27,8 @@ if (!isset($_SESSION['usuario_id'])) {
     exit;
 }
 
-$host = 'localhost';
-$user = 'root';
-$password = '';
-$dbname = 'weagles_connect';
-$conn = new mysqli($host, $user, $password, $dbname);
-if ($conn->connect_error) {
-    $response['message'] = "Falha na conexão: " . $conn->connect_error;
-    echo json_encode($response);
-    exit;
-}
+require_once 'conexao.php';
+$conn = $conexao;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
@@ -59,19 +51,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     $dadosFormulario = [
-        'razao'      => $_POST['razao'],
-        'cnpj'       => $_POST['cnpj'],
-        'email'      => $_POST['email'],
-        'telefone'   => $_POST['telefone'],
-        'area'       => $_POST['area'],
-        'dor'        => $_POST['dor'],
-        'descricao'  => $_POST['descricao'],
+        'razao'      => $_POST['razao'] ?? '',
+        'cnpj'       => $_POST['cnpj'] ?? '',
+        'email'      => $_POST['email'] ?? '',
+        'telefone'   => $_POST['telefone'] ?? '',
+        'area'       => $_POST['area'] ?? '',
+        'dor'        => $_POST['dor'] ?? '',
+        'descricao'  => $_POST['descricao'] ?? '',
         'id_usuario' => intval($_SESSION['usuario_id']),
         'id_consultor' => $id_consultor_atribuido
     ];
 
     $sql = "INSERT INTO cliente (nome_empresa, area_empresa, telefone, cnpj, dor_empresa, problema_empresa, email, id_usuario, id_consultor) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
+    if (!$stmt) {
+        $response['message'] = "Erro na preparação: " . $conn->error;
+        echo json_encode($response);
+        exit;
+    }
     
     $stmt->bind_param(
         "sssssssii", 

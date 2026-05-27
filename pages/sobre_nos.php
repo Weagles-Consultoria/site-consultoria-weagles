@@ -253,7 +253,7 @@ if (session_status() === PHP_SESSION_NONE) {
                         CEP: 15910-000
                     </p>
                 </div>
-                <a href="#" class="map-link">Veja no Maps</a>
+                <a href="https://www.google.com/maps/place/R.+Dr.+Raul+da+Rocha+Medeiros,+1624+-+Centro,+Monte+Alto+-+SP,+15910-000" target="_blank" class="map-link">Veja no Maps</a>
             </div>
             <div class="footer-middle">
                 <div class="contact-item">
