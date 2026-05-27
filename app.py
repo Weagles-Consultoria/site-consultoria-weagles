@@ -1,5 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
+import re
+import unicodedata
 
 app = Flask(__name__)
 CORS(app)
@@ -42,18 +44,35 @@ respostas = {
     }
 }
 
+def normalizar_texto(texto):
+    texto = unicodedata.normalize("NFD", texto.casefold())
+    texto = "".join(caractere for caractere in texto if unicodedata.category(caractere) != "Mn")
+    return re.sub(r"\s+", " ", texto).strip()
+
+
+def contem_termo(mensagem, termo):
+    padrao = rf"(?<!\w){re.escape(normalizar_texto(termo))}(?!\w)"
+    return re.search(padrao, mensagem) is not None
+
+
 def processar_mensagem(mensagem):
-    mensagem = mensagem.lower().strip("?!.,")
+    if not isinstance(mensagem, str):
+        return respostas["default"]["resposta"]
+
+    mensagem = normalizar_texto(mensagem)
     for categoria in respostas.values():
         if "palavras_chave" in categoria:
             for palavra in categoria["palavras_chave"]:
-                if palavra in mensagem:
+                if contem_termo(mensagem, palavra):
                     return categoria["resposta"]
     return respostas["default"]["resposta"]
 
 @app.route("/chat", methods=["POST"])
 def chat():
-    msg = request.json.get("msg", "")
+    dados = request.get_json(silent=True) or {}
+    if not isinstance(dados, dict):
+        dados = {}
+    msg = dados.get("msg", "")
     resposta = processar_mensagem(msg)
     return jsonify({"resposta": resposta})
 
