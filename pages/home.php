@@ -95,55 +95,77 @@ if (session_status() === PHP_SESSION_NONE) {
             </div>
         </section>
 
-        <!-- SOBRE NÓS (Resumido e Focado em Autoridade) -->
+        <!-- SOBRE NÓS -->
         <section id="sobre" class="container padding-section">
-            <div class="sobre-grid">
-                <div class="sobre-texto">
-                    <h2 class="section-title text-left">Quem Somos</h2>
-                    <p>A Weagles Consultoria e Tecnologia é pioneira na implementação de soluções práticas de Inteligência Artificial para o mercado B2B brasileiro.</p>
-                    <p>Nossa equipe une expertise técnica profunda com visão de negócios, garantindo que cada linha de código gerada se traduza em ROI positivo para sua empresa.</p>
+            <h2 class="section-title text-left">Quem Somos</h2>
+            <div class="quem-somos-carousel animate-on-scroll" aria-label="Sócios fundadores da Weagles">
+                <div class="carousel-images">
+                    <img class="carousel-image active" src="../image/ceo.jpg" alt="João Gabriel Cozentino, sócio fundador da Weagles">
+                    <img class="carousel-image" src="../image/marketing.JPG" alt="Vitor Garbin, sócio fundador da Weagles">
+                    <button class="carousel-arrow carousel-prev" type="button" aria-label="Exibir sócio anterior">
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </button>
+                    <button class="carousel-arrow carousel-next" type="button" aria-label="Exibir próximo sócio">
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </button>
                 </div>
-                <div class="sobre-imagem animate-on-scroll">
-                    <!-- Placeholder para imagem da equipe/escritório -->
-                    <div class="img-placeholder">
-                        <i class="fa-solid fa-building fa-4x"></i>
+
+                <div class="carousel-content">
+                    <div class="carousel-text">
+                        <article class="carousel-text-slide active">
+                            <h3>João Gabriel Cozentino</h3>
+                            <h4>Sócio Fundador</h4>
+                            <p>Une liderança estratégica e visão tecnológica para transformar Inteligência Artificial em soluções práticas que aumentam a eficiência e geram valor para empresas.</p>
+                        </article>
+                        <article class="carousel-text-slide">
+                            <h3>Vitor Garbin</h3>
+                            <h4>Sócio Fundador</h4>
+                            <p>Conduz estratégias de crescimento e posicionamento de mercado, conectando oportunidades de negócio a soluções digitais que fortalecem resultados sustentáveis.</p>
+                        </article>
+                    </div>
+
+                    <div class="carousel-dots" role="tablist" aria-label="Selecionar sócio">
+                        <button class="carousel-dot active" type="button" role="tab" aria-label="Exibir João Gabriel Cozentino" aria-selected="true"></button>
+                        <button class="carousel-dot" type="button" role="tab" aria-label="Exibir Vitor Garbin" aria-selected="false"></button>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- SEÇÃO DE DEPOIMENTOS (Prova Social) -->
-        <section id="depoimentos" class="container padding-section">
-            <h2 class="section-title">O que dizem nossos parceiros</h2>
-            <div class="depoimentos-grid">
+        <section id="depoimentos">
+            <div class="depoimentos-inner">
+                <h2 class="section-title">O que dizem nossos parceiros</h2>
+                <div class="depoimentos-grid">
 
-                <article class="card-depoimento animate-on-scroll">
-                    <div class="estrelas">★★★★★</div>
-                    <p class="texto-depoimento">"A Weagles implementou um agente de IA que reduziu nosso tempo de triagem de leads em 70%. Hoje nossa equipe foca apenas em fechar vendas."</p>
-                    <div class="autor-depoimento">
-                        <span class="autor-nome">Kasa Langerie</span>
-                        <span class="autor-empresa">Varejo de Moda</span>
-                    </div>
-                </article>
+                    <article class="card-depoimento animate-on-scroll">
+                        <div class="estrelas">★★★★★</div>
+                        <p class="texto-depoimento">"A Weagles implementou um agente de IA que reduziu nosso tempo de triagem de leads em 70%. Hoje nossa equipe foca apenas em fechar vendas."</p>
+                        <div class="autor-depoimento">
+                            <span class="autor-nome">Kasa Langerie</span>
+                            <span class="autor-empresa">Varejo de Moda</span>
+                        </div>
+                    </article>
 
-                <article class="card-depoimento animate-on-scroll">
-                    <div class="estrelas">★★★★★</div>
-                    <p class="texto-depoimento">"Solução robusta e atendimento excepcional. Conseguimos automatizar processos que antes exigiam 3 pessoas para gerenciar."</p>
-                    <div class="autor-depoimento">
-                        <span class="autor-nome">Porto Sono</span>
-                        <span class="autor-empresa">Indústria e Logística</span>
-                    </div>
-                </article>
+                    <article class="card-depoimento animate-on-scroll">
+                        <div class="estrelas">★★★★★</div>
+                        <p class="texto-depoimento">"Solução robusta e atendimento excepcional. Conseguimos automatizar processos que antes exigiam 3 pessoas para gerenciar."</p>
+                        <div class="autor-depoimento">
+                            <span class="autor-nome">Porto Sono</span>
+                            <span class="autor-empresa">Indústria e Logística</span>
+                        </div>
+                    </article>
 
-                <article class="card-depoimento animate-on-scroll">
-                    <div class="estrelas">★★★★★</div>
-                    <p class="texto-depoimento">"O diagnóstico inicial nos abriu os olhos para gargalos operacionais que nem sabíamos que tínhamos. A IA deles é cirúrgica."</p>
-                    <div class="autor-depoimento">
-                        <span class="autor-nome">João Gabriel</span>
-                        <span class="autor-empresa">CEO Weagle Tecnologia</span>
-                    </div>
-                </article>
+                    <article class="card-depoimento animate-on-scroll">
+                        <div class="estrelas">★★★★★</div>
+                        <p class="texto-depoimento">"O diagnóstico inicial nos abriu os olhos para gargalos operacionais que nem sabíamos que tínhamos. A IA deles é cirúrgica."</p>
+                        <div class="autor-depoimento">
+                            <span class="autor-nome">João Gabriel</span>
+                            <span class="autor-empresa">CEO Weagle Tecnologia</span>
+                        </div>
+                    </article>
 
+                </div>
             </div>
         </section>
 
@@ -163,5 +185,6 @@ if (session_status() === PHP_SESSION_NONE) {
 
     <script src="../javascript/formulario_consultoria_wizard.js"></script>
     <script src="../javascript/exit_intent.js"></script>
+    <script src="../javascript/quem_somos_carousel.js"></script>
 </body>
 </html>

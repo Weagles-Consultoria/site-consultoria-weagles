@@ -45,12 +45,14 @@ body {
 
 /* --- Seção de Depoimentos (Prova Social) --- */
 #depoimentos {
-    background-color: var(--cor-fundo-escuro);
+    padding: 60px 0;
+    background-color: #121412;
     color: #fff;
 }
 
-#depoimentos .section-title {
-    color: #fff;
+.depoimentos-inner {
+    width: min(calc(100% - 4rem), 1200px);
+    margin: 0 auto;
 }
 
 .depoimentos-grid {
@@ -58,6 +60,10 @@ body {
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
     margin-top: 3rem;
+}
+
+#depoimentos .section-title {
+    color: #fff;
 }
 
 .card-depoimento {
@@ -325,28 +331,136 @@ body {
     margin-top: 4rem;
 }
 
-/* --- Sobre Nós --- */
-.sobre-grid {
+/* --- Quem Somos --- */
+.quem-somos-carousel {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 4rem;
     align-items: center;
 }
 
-.sobre-texto p {
-    font-size: 1.1rem;
-    color: #555;
-    margin-bottom: 1.5rem;
+.carousel-images {
+    position: relative;
+    width: 100%;
+    height: 450px;
+    min-width: 0;
+    overflow: hidden;
+    border-radius: 8px;
+    background-color: #111;
 }
 
-.img-placeholder {
-    background-color: #eee;
-    border-radius: 12px;
-    height: 400px;
+.carousel-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 450px;
+    border-radius: 8px;
+    object-fit: cover;
+    object-position: top center;
+    opacity: 0;
+    transform: scale(1.03);
+    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+}
+
+.carousel-image.active {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.carousel-arrow {
+    position: absolute;
+    top: 50%;
     display: flex;
-    justify-content: center;
     align-items: center;
-    color: #ccc;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.52);
+    color: #fff;
+    cursor: pointer;
+    opacity: 0.82;
+    transform: translateY(-50%);
+    transition: background-color 0.3s ease, opacity 0.3s ease;
+    z-index: 2;
+}
+
+.carousel-arrow:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+    opacity: 1;
+}
+
+.carousel-prev {
+    left: 16px;
+}
+
+.carousel-next {
+    right: 16px;
+}
+
+.carousel-text {
+    display: grid;
+}
+
+.carousel-text-slide {
+    grid-area: 1 / 1;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(16px);
+    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+}
+
+.carousel-text-slide.active {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateX(0);
+}
+
+.carousel-text-slide h3 {
+    margin-bottom: 0.35rem;
+    color: #111;
+    font-family: 'Poppins', sans-serif;
+    font-size: 2rem;
+    line-height: 1.2;
+}
+
+.carousel-text-slide h4 {
+    margin-bottom: 1.25rem;
+    color: var(--cor-conversao);
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.95rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.carousel-text-slide p {
+    color: #555;
+    font-size: 1.1rem;
+    line-height: 1.8;
+}
+
+.carousel-dots {
+    display: flex;
+    gap: 10px;
+    margin-top: 2rem;
+}
+
+.carousel-dot {
+    width: 10px;
+    height: 10px;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    background-color: #b8b8b8;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.carousel-dot.active {
+    background-color: #fff;
+    box-shadow: 0 0 0 1px #888;
+    transform: scale(1.25);
 }
 
 /* --- FAQ --- */
@@ -398,8 +512,9 @@ body {
 
 /* --- RESPONSIVIDADE --- */
 @media (max-width: 992px) {
-    .sobre-grid {
+    .quem-somos-carousel {
         grid-template-columns: 1fr;
+        gap: 2rem;
     }
     
     .hero h1 {
@@ -408,6 +523,9 @@ body {
 }
 
 @media (max-width: 768px) {
+    .carousel-images,
+    .carousel-image { height: 340px; }
+    .carousel-text-slide h3 { font-size: 1.6rem; }
     .hero h1 { font-size: 2.2rem; }
     .hero-subtitle { font-size: 1.1rem; }
     .btn-conversao-extrema { width: 100%; padding: 15px 20px; font-size: 1rem; }
