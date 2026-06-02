@@ -1,6 +1,6 @@
 <header id="main-header">
     <div class="container-header">
-        <div class="logo">
+        <div class="header-logo">
             <a href="home.php">
                 <img src="../image/032469dd-5117-43d7-a40d-eeb32f25cab3.png" alt="WEAGLES" />
             </a>
@@ -10,12 +10,12 @@
             <button class="menu-toggle" aria-label="Abrir menu">
                 <i class="fa-solid fa-bars"></i>
             </button>
-            <div class="menu-links">
-                <a href="#inicio">Início</a>
-                <a href="#solucao">Solução</a>
-                <a href="#sobre">Sobre Nós</a>
-                <a href="#faq">FAQ</a>
-            </div>
+            <ul class="menu-links">
+                <li><a href="#inicio">Início</a></li>
+                <li><a href="#solucao">Solução</a></li>
+                <li><a href="#sobre">Sobre Nós</a></li>
+                <li><a href="faq.php">FAQ</a></li>
+            </ul>
         </nav>
 
         <div class="user-actions">
@@ -27,8 +27,7 @@
             <?php else: ?>
                 <button id="login-btn" class="btn-destaque" type="button">Entrar</button>
             <?php endif; ?>
-            <!-- Botão Secundário de CTA no Header -->
-            <button class="btn-conversao-extrema-sm abrir-modal-consultoria" style="margin-left: 15px;">Diagnóstico</button>
+            <button class="btn-conversao-extrema-sm abrir-modal-consultoria" type="button">Agendar Diagnóstico</button>
         </div>
     </div>
 </header>

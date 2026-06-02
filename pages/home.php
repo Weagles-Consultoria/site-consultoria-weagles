@@ -14,7 +14,7 @@ if (session_status() === PHP_SESSION_NONE) {
     <link rel="stylesheet" href="../style/home.css"> 
     <link rel="stylesheet" href="../style/header_fixed.css">
     <link rel="stylesheet" href="../style/formulario_consultoria_modal.css">
-    
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
@@ -112,22 +112,46 @@ if (session_status() === PHP_SESSION_NONE) {
             </div>
         </section>
 
-        <!-- FAQ -->
-        <section id="faq" class="container padding-section bg-alternativo">
-            <h2 class="section-title">Perguntas Frequentes</h2>
-            <div class="faq-container">
-                <details class="faq-item animate-on-scroll">
-                    <summary>A IA vai substituir meus funcionários?</summary>
-                    <p>Não. A IA atua como um 'copiloto', assumindo tarefas mecânicas e liberando sua equipe para atividades estratégicas, criativas e de relacionamento com o cliente.</p>
-                </details>
-                <details class="faq-item animate-on-scroll">
-                    <summary>É preciso mudar meus sistemas atuais?</summary>
-                    <p>Na maioria dos casos, não. Nossas soluções são desenvolvidas para se integrar via API aos principais CRMs e ERPs do mercado, funcionando como uma camada de inteligência extra.</p>
-                </details>
-                <details class="faq-item animate-on-scroll">
-                    <summary>Quanto tempo leva para implementar?</summary>
-                    <p>Depende da complexidade, mas projetos de rápida adoção podem ser entregues e começar a gerar valor entre 4 a 8 semanas.</p>
-                </details>
+        <!-- SEÇÃO DE DEPOIMENTOS (Prova Social) -->
+        <section id="depoimentos" class="container padding-section">
+            <h2 class="section-title">O que dizem nossos parceiros</h2>
+            <div class="depoimentos-grid">
+
+                <article class="card-depoimento animate-on-scroll">
+                    <div class="estrelas">★★★★★</div>
+                    <p class="texto-depoimento">"A Weagles implementou um agente de IA que reduziu nosso tempo de triagem de leads em 70%. Hoje nossa equipe foca apenas em fechar vendas."</p>
+                    <div class="autor-depoimento">
+                        <span class="autor-nome">Kasa Langerie</span>
+                        <span class="autor-empresa">Varejo de Moda</span>
+                    </div>
+                </article>
+
+                <article class="card-depoimento animate-on-scroll">
+                    <div class="estrelas">★★★★★</div>
+                    <p class="texto-depoimento">"Solução robusta e atendimento excepcional. Conseguimos automatizar processos que antes exigiam 3 pessoas para gerenciar."</p>
+                    <div class="autor-depoimento">
+                        <span class="autor-nome">Porto Sono</span>
+                        <span class="autor-empresa">Indústria e Logística</span>
+                    </div>
+                </article>
+
+                <article class="card-depoimento animate-on-scroll">
+                    <div class="estrelas">★★★★★</div>
+                    <p class="texto-depoimento">"O diagnóstico inicial nos abriu os olhos para gargalos operacionais que nem sabíamos que tínhamos. A IA deles é cirúrgica."</p>
+                    <div class="autor-depoimento">
+                        <span class="autor-nome">João Gabriel</span>
+                        <span class="autor-empresa">CEO Weagle Tecnologia</span>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+        <!-- CTA FINAL -->
+        <section class="container padding-section text-center">
+            <div class="center-cta">
+                <h2 class="section-title">Pronto para dar o próximo passo?</h2>
+                <button class="btn-conversao-extrema abrir-modal-consultoria">Agendar Meu Diagnóstico Gratuito</button>
             </div>
         </section>
     </main>

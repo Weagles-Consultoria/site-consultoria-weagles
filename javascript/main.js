@@ -88,15 +88,27 @@ function setupModals() {
     }
 }
 
+let lastScrollTop = 0;
+
 function setupHeaderScroll() {
     var header = document.querySelector('header');
     if (header) {
         window.addEventListener('scroll', function() {
-            if (window.scrollY > 45) {
-                header.classList.add('compacto');
-            } else {
-                header.classList.remove('compacto');
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+            header.classList.toggle('scrolled', scrollTop > 45);
+
+            if (scrollTop > lastScrollTop && scrollTop > 100) {
+                header.classList.add('header-hidden');
+            } else if (scrollTop < lastScrollTop) {
+                header.classList.remove('header-hidden');
             }
-        });
+
+            if (scrollTop <= 100) {
+                header.classList.remove('header-hidden');
+            }
+
+            lastScrollTop = Math.max(scrollTop, 0);
+        }, { passive: true });
     }
 }

@@ -22,20 +22,86 @@
 }
 
 /* --- Estilos Gerais --- */
-html {
-    scroll-behavior: smooth; /* Essencial para One-Page */
-    overflow-x: hidden;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* Garante que padding não aumente o tamanho dos elementos */
+}
+
+html, body {
+    scroll-behavior: smooth;
+    overflow-x: hidden; /* Evita scroll horizontal por elementos vazando */
+    width: 100%;
 }
 
 body {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
     font-family: 'Inter', Arial, Helvetica, sans-serif;
     background-color: var(--cor-fundo-claro);
     color: var(--cor-texto-principal);
     line-height: 1.6;
 }
+
+/* ... (manter variáveis e estilos existentes) ... */
+
+/* --- Seção de Depoimentos (Prova Social) --- */
+#depoimentos {
+    background-color: var(--cor-fundo-escuro);
+    color: #fff;
+}
+
+#depoimentos .section-title {
+    color: #fff;
+}
+
+.depoimentos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.card-depoimento {
+    background-color: #1A1C1A;
+    padding: 2rem;
+    border-radius: 12px;
+    border: 1px solid #333;
+    transition: transform 0.3s ease;
+}
+
+.card-depoimento:hover {
+    transform: translateY(-5px);
+    border-color: var(--cor-conversao);
+}
+
+.estrelas {
+    color: #FFD700;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+}
+
+.texto-depoimento {
+    font-style: italic;
+    color: #A0A0A0;
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+}
+
+.autor-depoimento {
+    display: flex;
+    flex-direction: column;
+}
+
+.autor-nome {
+    font-weight: 700;
+    color: #fff;
+}
+
+.autor-empresa {
+    font-size: 0.85rem;
+    color: var(--cor-conversao);
+}
+
+/* ... (restante do CSS) ... */
 
 .container {
     max-width: 1200px;
@@ -120,6 +186,7 @@ body {
     height: 100vh;
     min-height: 600px;
     width: 100%;
+    padding-top: 120px;
     display: flex;
     justify-content: center;
     align-items: center;
