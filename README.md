@@ -1,53 +1,56 @@
-# Projeto Weagle - Configuração Docker (PostgreSQL)
+# Weagle Connect v0.8 - B2B High-Conversion Landing Page
 
-Este projeto foi migrado de MySQL para PostgreSQL e está configurado para rodar em containers Docker.
+Este projeto é uma plataforma de consultoria e tecnologia baseada em IA, transformada de um site multi-páginas para uma **Landing Page One-Page de alta conversão** focada em Direct Response e CRO (Conversion Rate Optimization).
 
-## Pré-requisitos
+## 🚀 Novas Funcionalidades (v0.8)
 
-- [Docker](https://www.docker.com/) instalado.
-- [Docker Compose](https://docs.docker.com/compose/) instalado.
+- **Arquitetura One-Page**: Navegação fluida via âncoras para retenção de usuários.
+- **CRO Design**: Hero Section focada em "Dores do Cliente" e botões de conversão extrema.
+- **Wizard Multi-Step**: Formulário de diagnóstico qualificado em 4 etapas (Segmento, Cargo, Faturamento e Contato).
+- **Exit-Intent Popup**: Captura de leads que tentam sair da página sem converter.
+- **IA Integration**: Chatbot "Weglinho" integrado via Flask (Python) para suporte em tempo real.
 
-## Estrutura do Docker
+## 🛠️ Stack Tecnológica
 
-- **app**: Container PHP 8.2 com Apache, configurado com as extensões `pdo` e `pdo_pgsql`.
-- **db**: Container PostgreSQL 15.
+- **Backend Principal**: PHP 8.2 (Vanilla/PDO) + PostgreSQL 15.
+- **Backend IA**: Python (Flask) para o processamento de linguagem natural do chatbot.
+- **Frontend**: HTML5, CSS3 (Modular/BEM) e Vanilla JavaScript.
+- **Banco de Dados**: PostgreSQL com sistema de migrações versionadas.
 
-## Como Rodar o Projeto
+## 🐳 Configuração Docker
 
-1. **Construir e iniciar os containers:**
+O projeto está totalmente conteinerizado sob o nome **projetoweaglev08**.
 
-   No diretório raiz do projeto, execute:
-   ```bash
-   docker-compose up --build -d
-   ```
+### 1. Iniciar os Containers
+No diretório raiz, execute:
+```bash
+docker-compose -p projetoweaglev08 up --build -d
+```
 
-2. **Criação das Tabelas (Migrations):**
+### 2. Executar Migrações do Banco de Dados
+Para criar as tabelas e aplicar as atualizações de CRO (como os novos campos de leads), execute o comando abaixo:
 
-   O arquivo `init.sql` foi configurado para criar automaticamente as tabelas `usuario`, `consultor` e `cliente` assim que o container do banco de dados for iniciado pela primeira vez. 
+```bash
+# Executa o script de migração dentro do container da aplicação
+docker exec -it projetoweaglev08-app-1 php migrate.php
+```
 
-   Se você precisar rodar o script manualmente ou resetar o banco:
-   ```bash
-   docker exec -i $(docker ps -qf "name=db") psql -U postgres -d weagles_connect < init.sql
-   ```
+## 📂 Estrutura de Pastas
 
-3. **Acessar a Aplicação:**
+- `/pages`: Visualizações e componentes (Home, Modais).
+- `/php`: Lógica de negócio, autenticação e conexão PDO.
+- `/database/migrations`: Scripts SQL versionados.
+- `/javascript`: Scripts de comportamento (Wizard, Exit-Intent, Chatbot).
+- `/style`: Estilização modular CSS.
+- `/vendor`: Dependências via Composer (PHPMailer, Dompdf).
 
-   A aplicação estará disponível em: [http://localhost:8080](http://localhost:8080)
+## 🌐 Acesso
+- **Aplicação**: [http://localhost:8090](http://localhost:8090)
+- **API Chatbot**: [http://localhost:5000/chat](http://localhost:5000/chat)
 
-## Configurações de Banco de Dados
-
-As variáveis de ambiente estão configuradas no `docker-compose.yml`:
-
+## 🗄️ Dados de Conexão (DB)
 - **Host**: `db`
-- **Porta**: `5432`
 - **Database**: `weagles_connect`
-- **Usuário**: `postgres`
-- **Senha**: `postgres`
+- **Usuário/Senha**: `postgres` / `postgres`
+- **Porta Externa**: `5433` (para acesso via DBeaver/PGAdmin)
 
-A porta exposta para acesso externo ao banco (via DBeaver, etc) é a **5433**.
-
-## Migração Técnica
-
-- A camada de conexão PHP foi alterada de `mysqli` para `PDO`.
-- Consultas SQL foram adaptadas (ex: `RAND()` para `RANDOM()`).
-- O schema do banco utiliza `SERIAL` para IDs autoincrementais.

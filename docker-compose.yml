@@ -5,6 +5,8 @@ services:
     build: .
     ports:
       - "8090:80"
+    volumes:
+      - .:/var/www/html
     env_file:
       - .env
     depends_on:
@@ -30,7 +32,7 @@ services:
       - POSTGRES_USER=${DB_USER:-postgres}
       - POSTGRES_PASSWORD=${DB_PASS:-postgres}
     ports:
-      - "5433:5432"
+      - "5490:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql

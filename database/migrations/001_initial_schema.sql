@@ -1,6 +1,7 @@
--- Criação das tabelas para o projeto Weagle (PostgreSQL)
+-- Baseline: Esquema Inicial do Projeto Weagle Connect
+-- Versão: 1.0.0
 
--- Tabela de Usuários
+-- Tabela de Usuários (Login administrativo/cliente)
 CREATE TABLE IF NOT EXISTS usuario (
     id_usuario SERIAL PRIMARY KEY,
     nome VARCHAR(255) NOT NULL,
@@ -9,33 +10,29 @@ CREATE TABLE IF NOT EXISTS usuario (
     criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Tabela de Consultores
+-- Tabela de Consultores (Equipe Weagle)
 CREATE TABLE IF NOT EXISTS consultor (
     id_consultor SERIAL PRIMARY KEY,
     nome VARCHAR(255),
     email VARCHAR(255) UNIQUE NOT NULL
 );
 
--- Tabela de Clientes/Leads (Versão Atualizada v0.8)
+-- Tabela de Clientes/Leads
 CREATE TABLE IF NOT EXISTS cliente (
     id_cliente SERIAL PRIMARY KEY,
-    nome_contato VARCHAR(255),       -- Nome da pessoa
-    nome_empresa VARCHAR(255),       -- Opcional no início
-    segmento VARCHAR(100),           -- Segmento da empresa
-    cargo VARCHAR(100),              -- Cargo do contato
-    faturamento VARCHAR(100),        -- Faixa de faturamento
-    telefone VARCHAR(50),            -- WhatsApp
-    email VARCHAR(255),              -- E-mail corporativo
-    area_empresa VARCHAR(255),       -- (Legado)
-    cnpj VARCHAR(20),               -- (Legado)
-    dor_empresa VARCHAR(255),        -- (Legado)
-    problema_empresa TEXT,           -- (Legado)
+    nome_empresa VARCHAR(255), -- Removido NOT NULL para compatibilidade com novos Leads
+    area_empresa VARCHAR(255),
+    telefone VARCHAR(50),
+    cnpj VARCHAR(20),
+    dor_empresa VARCHAR(255),
+    problema_empresa TEXT,
+    email VARCHAR(255),
     id_usuario INT REFERENCES usuario(id_usuario) ON DELETE CASCADE,
     id_consultor INT REFERENCES consultor(id_consultor) ON DELETE SET NULL,
     criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Inserção de consultores de exemplo se a tabela estiver vazia
+-- Dados iniciais (Seed)
 INSERT INTO consultor (nome, email) 
 SELECT 'Consultor Alpha', 'alpha@weagles.com'
 WHERE NOT EXISTS (SELECT 1 FROM consultor WHERE email = 'alpha@weagles.com');

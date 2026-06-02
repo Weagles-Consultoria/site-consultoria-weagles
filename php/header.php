@@ -11,10 +11,10 @@
                 <i class="fa-solid fa-bars"></i>
             </button>
             <div class="menu-links">
-                <a href="teste.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'teste.php' ? 'active' : ''; ?>">Nossas IAs</a>
-                <a href="sobre_nos.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'sobre_nos.php' ? 'active' : ''; ?>">Sobre nós</a>
-                <a href="consultoria.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'consultoria.php' ? 'active' : ''; ?>">Consultoria</a>
-                <a href="formulario_consultoria.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'formulario_consultoria.php' ? 'active' : ''; ?>">Marcar consultoria</a>
+                <a href="#inicio">Início</a>
+                <a href="#solucao">Solução</a>
+                <a href="#sobre">Sobre Nós</a>
+                <a href="#faq">FAQ</a>
             </div>
         </nav>
 
@@ -27,6 +27,8 @@
             <?php else: ?>
                 <button id="login-btn" class="btn-destaque" type="button">Entrar</button>
             <?php endif; ?>
+            <!-- Botão Secundário de CTA no Header -->
+            <button class="btn-conversao-extrema-sm abrir-modal-consultoria" style="margin-left: 15px;">Diagnóstico</button>
         </div>
     </div>
 </header>
