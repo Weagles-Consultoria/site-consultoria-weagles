@@ -1,18 +1,44 @@
+#modal-consultoria-wizard {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.68);
+    box-sizing: border-box;
+}
+
 .modal-wizard {
-    max-width: 600px;
-    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    width: 95%;
+    max-width: 650px;
+    max-height: 85vh;
+    padding: 0;
     border-radius: 12px;
+    overflow: hidden;
+    background: #fff;
+}
+
+.modal-wizard .fechar-wizard {
+    top: 14px;
+    right: 18px;
+    z-index: 2;
 }
 
 .wizard-header {
+    flex: 0 0 auto;
+    padding: 20px 48px 14px;
     text-align: center;
-    margin-bottom: 2rem;
+    border-bottom: 1px solid #eee;
 }
 
 .wizard-header h3 {
     font-family: 'Poppins', sans-serif;
     color: #111;
-    margin-bottom: 1rem;
+    margin-bottom: 0.75rem;
 }
 
 .wizard-progress {
@@ -35,10 +61,24 @@
     color: #777;
 }
 
+#form-consultoria-wizard {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    min-height: 0;
+}
+
+.wizard-body {
+    flex: 1;
+    min-height: 0;
+    padding: 20px;
+    overflow-y: auto;
+}
+
 .wizard-step h4 {
     font-size: 1.2rem;
     color: #333;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
     text-align: center;
 }
 
@@ -54,7 +94,7 @@
 .opcoes-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 15px;
+    gap: 12px;
 }
 
 .opcao-card {
@@ -62,7 +102,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 20px 10px;
+    padding: 14px 8px;
     border: 2px solid #eee;
     border-radius: 8px;
     cursor: pointer;
@@ -72,8 +112,8 @@
 }
 
 .opcao-card i {
-    font-size: 1.8rem;
-    margin-bottom: 10px;
+    font-size: 1.45rem;
+    margin-bottom: 7px;
     color: #888;
 }
 
@@ -147,10 +187,12 @@
 
 .wizard-footer {
     display: flex;
+    flex: 0 0 auto;
     justify-content: space-between;
-    margin-top: 2rem;
-    padding-top: 1.5rem;
+    gap: 12px;
+    padding: 14px 20px;
     border-top: 1px solid #eee;
+    background-color: #fff;
 }
 
 .btn-secundario {
@@ -166,4 +208,32 @@
 
 .btn-secundario:hover {
     background-color: #ddd;
+}
+
+@media (max-width: 520px) {
+    #modal-consultoria-wizard {
+        padding: 12px;
+    }
+
+    .modal-wizard {
+        width: 100%;
+        max-height: 90vh;
+    }
+
+    .wizard-header {
+        padding: 16px 42px 12px;
+    }
+
+    .wizard-body {
+        padding: 16px;
+    }
+
+    .opcoes-grid {
+        gap: 10px;
+    }
+
+    .opcao-card {
+        padding: 12px 6px;
+        font-size: 0.88rem;
+    }
 }
