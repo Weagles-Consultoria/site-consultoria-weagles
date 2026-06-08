@@ -1,7 +1,7 @@
 <footer class="footer-dark">
     <div class="container footer-content">
         <div class="footer-info">
-            <img src="../image/032469dd-5117-43d7-a40d-eeb32f25cab3.png" alt="Weagles Logo" class="footer-logo">
+            <img src="../image/nova-logo-weagles.png" alt="Grupo Weagles" class="footer-logo">
             <p class="footer-tagline">Programa de Aceleração Comercial para times que querem bater meta todo mês.</p>
             <address class="footer-address">
                 <p><i class="fa-solid fa-location-dot"></i> Monte Alto - SP</p>
@@ -9,7 +9,7 @@
             <div class="footer-contacts">
                 <a href="mailto:consultoriaweagles@gmail.com"><i class="fa-solid fa-envelope"></i> consultoriaweagles@gmail.com</a>
                 <a href="https://wa.me/5516997833173" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-whatsapp"></i> +55 16 99783-3173</a>
-                <a href="https://instagram.com/weagles_" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-instagram"></i> @weagles_</a>
+                <a href="https://www.instagram.com/grupoweagles/" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-instagram"></i> @grupoweagles</a>
             </div>
             <nav class="footer-links" aria-label="Rodapé">
                 <a href="#programa">Programa</a>
@@ -76,9 +76,8 @@
 }
 
 .footer-logo {
-    width: 150px;
+    width: 240px;
     margin-bottom: 1.5rem;
-    filter: brightness(0) invert(1);
 }
 
 .footer-tagline {
@@ -191,7 +190,7 @@
     height: 58px;
     border: none;
     border-radius: 50%;
-    background-color: var(--cor-conversao, #1d9b4b);
+    background-color: var(--cor-conversao, #4da3ff);
     color: #fff;
     cursor: pointer;
     font-size: 23px;
@@ -201,7 +200,7 @@
 }
 
 .weglinho-fab:hover {
-    background-color: var(--cor-conversao-hover, #167a3a);
+    background-color: var(--cor-conversao-hover, #78b9ff);
     transform: translateY(-3px);
 }
 
@@ -221,7 +220,7 @@
     width: 35px;
     height: 35px;
     border-radius: 50%;
-    background-color: var(--cor-conversao, #1d9b4b);
+    background-color: var(--cor-conversao, #4da3ff);
     color: #fff;
 }
 
@@ -237,7 +236,7 @@
 }
 
 .bot-status span {
-    color: #00c853;
+    color: var(--cor-conversao, #4da3ff);
     font-size: 0.75rem;
 }
 
@@ -310,14 +309,14 @@
     height: 38px;
     border: none;
     border-radius: 50%;
-    background-color: var(--cor-conversao, #1d9b4b);
+    background-color: var(--cor-conversao, #4da3ff);
     color: #fff;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 #send-btn:hover {
-    background-color: var(--cor-conversao-hover, #167a3a);
+    background-color: var(--cor-conversao-hover, #78b9ff);
     transform: scale(1.05);
 }
 
@@ -349,9 +348,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const fab = document.getElementById('weglinho-fab');
     const closeChatBtn = document.getElementById('close-chat-btn');
     const chatForm = document.getElementById('chat-form');
-    const loginModal = document.getElementById('login-modal');
-    const cadastroModal = document.getElementById('cadastro-modal');
-    const modalEsqueci = document.getElementById('modal-esqueci-senha');
     let lastScrollTop = 0;
 
     function updateHeader() {
@@ -397,44 +393,6 @@ document.addEventListener('DOMContentLoaded', function () {
             menuToggle.setAttribute('aria-label', isOpen ? 'Fechar menu' : 'Abrir menu');
         });
     }
-
-    document.querySelectorAll('#login-btn, .trigger-login-modal').forEach(function (button) {
-        button.addEventListener('click', function (event) {
-            event.preventDefault();
-            if (loginModal) loginModal.style.display = 'flex';
-        });
-    });
-
-    document.querySelectorAll('.fechar, .fechar-cadastro').forEach(function (button) {
-        button.addEventListener('click', function () {
-            const modal = button.closest('.modal');
-            if (modal) modal.style.display = 'none';
-        });
-    });
-
-    const abrirCadastro = document.getElementById('abrir-cadastro');
-    if (abrirCadastro && cadastroModal && loginModal) {
-        abrirCadastro.addEventListener('click', function (event) {
-            event.preventDefault();
-            loginModal.style.display = 'none';
-            cadastroModal.style.display = 'flex';
-        });
-    }
-
-    const linkEsqueci = document.getElementById('link-esqueci-senha');
-    if (linkEsqueci && modalEsqueci && loginModal) {
-        linkEsqueci.addEventListener('click', function (event) {
-            event.preventDefault();
-            loginModal.style.display = 'none';
-            modalEsqueci.style.display = 'flex';
-        });
-    }
-
-    window.addEventListener('click', function (event) {
-        if (event.target.classList.contains('modal')) {
-            event.target.style.display = 'none';
-        }
-    });
 
     fab.addEventListener('click', function () {
         toggleChat();
@@ -500,11 +458,4 @@ document.addEventListener('DOMContentLoaded', function () {
         observer.observe(element);
     });
 });
-
-function togglePasswordVisibility(inputId, toggleElement) {
-    const input = document.getElementById(inputId);
-    if (!input) return;
-    input.type = input.type === 'password' ? 'text' : 'password';
-    toggleElement.setAttribute('aria-label', input.type === 'password' ? 'Mostrar senha' : 'Ocultar senha');
-}
 </script>

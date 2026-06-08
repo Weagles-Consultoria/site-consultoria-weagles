@@ -4,7 +4,7 @@ header {
     left: 0;
     right: 0;
     z-index: 1500;
-    background: rgba(5, 5, 5, 0.82);
+    background: linear-gradient(135deg, rgba(10, 25, 51, 0.72), rgba(5, 5, 5, 0.92));
     border-bottom: 1px solid rgba(255, 255, 255, 0.06);
     backdrop-filter: blur(18px);
     transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
@@ -15,7 +15,7 @@ header.header-hidden {
 }
 
 header.scrolled {
-    background: rgba(5, 5, 5, 0.96);
+    background: linear-gradient(135deg, rgba(10, 25, 51, 0.9), rgba(5, 5, 5, 0.98));
     box-shadow: 0 18px 42px rgba(0, 0, 0, 0.22);
 }
 
@@ -31,9 +31,8 @@ header.scrolled {
 
 .header-logo img {
     display: block;
-    width: 148px;
+    width: 220px;
     height: auto;
-    filter: brightness(0) invert(1);
 }
 
 .menu {
@@ -62,7 +61,7 @@ header.scrolled {
     padding: 1.2rem;
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 20px;
-    background: rgba(10, 10, 10, 0.98);
+    background: linear-gradient(180deg, rgba(10, 25, 51, 0.98), rgba(5, 5, 5, 0.98));
     list-style: none;
 }
 
@@ -148,7 +147,7 @@ header.scrolled {
 
 @media (max-width: 420px) {
     .header-logo img {
-        width: 126px;
+        width: 180px;
     }
 
     .btn-conversao-extrema-sm {
