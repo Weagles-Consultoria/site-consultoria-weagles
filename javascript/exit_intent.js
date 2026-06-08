@@ -1,19 +1,42 @@
 document.addEventListener("DOMContentLoaded", function () {
-    let popupShown = false;
-    const modal = document.getElementById("modal-consultoria-wizard");
+    const popup = document.getElementById("exit-intent-popup");
+    const closeButton = document.getElementById("close-exit-popup");
+    const ctaButton = document.getElementById("exit-popup-cta");
+    const openWizardButton = document.querySelector(".abrir-modal-consultoria");
 
-    // Exit Intent Logic
-    document.addEventListener("mouseleave", function (e) {
-        // Verifica se o cursor saiu pela parte superior da janela (indicando intenção de fechar/mudar aba)
-        // e se o popup ainda não foi mostrado nesta sessão.
-        if (e.clientY < 10 && !popupShown && modal) {
-            
-            // Opcional: Usar sessionStorage para garantir que só mostre 1x por sessão do navegador
-            if (!sessionStorage.getItem('exitIntentShown')) {
-                modal.style.display = "flex";
-                popupShown = true;
-                sessionStorage.setItem('exitIntentShown', 'true');
-            }
+    if (!popup) {
+        return;
+    }
+
+    function openPopup() {
+        popup.classList.add("is-visible");
+        popup.setAttribute("aria-hidden", "false");
+        sessionStorage.setItem("exitIntentShown", "true");
+    }
+
+    function closePopup() {
+        popup.classList.remove("is-visible");
+        popup.setAttribute("aria-hidden", "true");
+    }
+
+    document.addEventListener("mouseleave", function (event) {
+        if (event.clientY >= 10 || sessionStorage.getItem("exitIntentShown")) {
+            return;
         }
+
+        openPopup();
     });
+
+    if (closeButton) {
+        closeButton.addEventListener("click", closePopup);
+    }
+
+    if (ctaButton) {
+        ctaButton.addEventListener("click", function () {
+            closePopup();
+            if (openWizardButton) {
+                openWizardButton.click();
+            }
+        });
+    }
 });

@@ -1,142 +1,92 @@
 <?php
-// Define a resposta padrão. 
 $response = ['success' => false, 'message' => 'Ocorreu um erro desconhecido.'];
 
-// Configura o cabeçalho para indicar que a resposta será em JSON
-header('Content-Type: application/json');
+header('Content-Type: application/json; charset=UTF-8');
 
-
-require '../vendor/autoload.php';
-// Arquivo de configuração com as senhas e dados sensíveis
-require_once 'config.php';
-
-
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
-use Dompdf\Dompdf;
-use Dompdf\Options;
-
-
-session_start();
-
-if (!isset($_SESSION['usuario_id'])) {
-    $response['message'] = 'Usuário não autenticado.';
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    http_response_code(405);
+    $response['message'] = 'Método não permitido.';
     echo json_encode($response);
     exit;
 }
 
-require_once 'conexao.php';
-$conn = $conexao;
+$webhookUrl = 'https://webhook.weagles.com.br/webhook/963bec1a-38dc-454c-9dbc-b965ad0b792a';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    
-    $id_consultor_atribuido = null;
-    $email_consultor_atribuido = null; 
+$payload = [
+    'nome' => trim($_POST['nome'] ?? ''),
+    'email' => trim($_POST['email'] ?? ''),
+    'telefone' => trim($_POST['telefone'] ?? ''),
+    'segmento' => trim($_POST['segmento'] ?? ($_POST['area'] ?? '')),
+    'cargo' => trim($_POST['cargo'] ?? 'Não informado'),
+    'time_comercial' => trim($_POST['faturamento'] ?? 'Não informado'),
+    'mensagem' => trim($_POST['mensagem'] ?? ($_POST['descricao'] ?? 'Lead via landing page Weagles')),
+    'empresa' => trim($_POST['razao'] ?? ''),
+    'cnpj' => trim($_POST['cnpj'] ?? ''),
+    'dor' => trim($_POST['dor'] ?? ''),
+    'origem' => 'landing-page-weagles',
+    'enviado_em' => date('c')
+];
 
-    
-    $result_consultor = $conn->query("SELECT id_consultor, email FROM consultor ORDER BY RANDOM() LIMIT 1");
-    $consultor = $result_consultor ? $result_consultor->fetch() : null;
-    
-    if ($consultor) {
-        $id_consultor_atribuido = $consultor['id_consultor'];
-        $email_consultor_atribuido = $consultor['email']; 
-    } else {
-        
-        error_log("Nenhum consultor encontrado para atribuição. Usando e-mail de fallback.");
-        if (defined('EMAIL_DESTINO')) {
-            $email_consultor_atribuido = EMAIL_DESTINO;
-        }
-    }
-
-    $dadosFormulario = [
-        'razao'      => $_POST['razao'] ?? '',
-        'cnpj'       => $_POST['cnpj'] ?? '',
-        'email'      => $_POST['email'] ?? '',
-        'telefone'   => $_POST['telefone'] ?? '',
-        'area'       => $_POST['area'] ?? '',
-        'dor'        => $_POST['dor'] ?? '',
-        'descricao'  => $_POST['descricao'] ?? '',
-        'id_usuario' => intval($_SESSION['usuario_id']),
-        'id_consultor' => $id_consultor_atribuido
-    ];
-
-    $sql = "INSERT INTO cliente (nome_empresa, area_empresa, telefone, cnpj, dor_empresa, problema_empresa, email, id_usuario, id_consultor) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    $stmt = $conn->prepare($sql);
-    if (!$stmt) {
-        $response['message'] = "Erro na preparação.";
-        echo json_encode($response);
-        exit;
-    }
-    
-    if ($stmt->execute([
-        $dadosFormulario['razao'], $dadosFormulario['area'], $dadosFormulario['telefone'], $dadosFormulario['cnpj'], 
-        $dadosFormulario['dor'], $dadosFormulario['descricao'], $dadosFormulario['email'], 
-        $dadosFormulario['id_usuario'], $dadosFormulario['id_consultor']
-    ])) {
-        $response['success'] = true;
-        $response['message'] = 'Dados enviados com sucesso!';
-        
-        
-        if ($email_consultor_atribuido) {
-            try {
-                $htmlParaPdf = '
-                <!DOCTYPE html><html lang="pt-br"><head><meta charset="UTF-8"><title>Relatório</title><style>body{font-family:DejaVu Sans,sans-serif;font-size:12px}h1{text-align:center}table{width:100%;border-collapse:collapse}th,td{border:1px solid #ccc;padding:8px;text-align:left}th{background-color:#f2f2f2}</style></head><body>
-                <h1>Nova Prospecção de Consultoria</h1><table><tr><th>Campo</th><th>Valor</th></tr>
-                <tr><td>Razão Social</td><td>' . htmlspecialchars($dadosFormulario['razao']) . '</td></tr>
-                <tr><td>CNPJ</td><td>' . htmlspecialchars($dadosFormulario['cnpj']) . '</td></tr>
-                <tr><td>E-mail de Contato</td><td>' . htmlspecialchars($dadosFormulario['email']) . '</td></tr>
-                <tr><td>Telefone</td><td>' . htmlspecialchars($dadosFormulario['telefone']) . '</td></tr>
-                <tr><td>Área da Empresa</td><td>' . htmlspecialchars($dadosFormulario['area']) . '</td></tr>
-                <tr><td>Dor da Empresa</td><td>' . htmlspecialchars($dadosFormulario['dor']) . '</td></tr>
-                <tr><td>Descrição do Problema</td><td>' . nl2br(htmlspecialchars($dadosFormulario['descricao'])) . '</td></tr>
-                </table></body></html>';
-
-                $options = new Options();
-                $options->set('defaultFont', 'DejaVu Sans');
-                $dompdf = new Dompdf($options);
-                $dompdf->loadHtml($htmlParaPdf);
-                $dompdf->setPaper('A4', 'portrait');
-                $dompdf->render();
-                $outputPdf = $dompdf->output();
-
-                $mail = new PHPMailer(true);
-
-                $mail->isSMTP();
-                $mail->Host       = SMTP_HOST;
-                $mail->SMTPAuth   = true;
-                $mail->Username   = SMTP_USERNAME;
-                $mail->Password   = SMTP_PASSWORD;
-                $mail->SMTPSecure = SMTP_SECURE;
-                $mail->Port       = SMTP_PORT;
-                $mail->CharSet    = 'UTF-8';
-
-                $mail->setFrom(SMTP_USERNAME, 'Sistema Weagles');
-                
-                
-                $mail->addAddress($email_consultor_atribuido, 'Consultor(a) Responsável');
-
-                $mail->isHTML(true);
-                $mail->Subject = 'Novo Cliente Cadastrado: ' . $dadosFormulario['razao'];
-                $mail->Body    = 'Um novo cliente preencheu o formulário de consultoria. O relatório completo com os dados está em anexo.';
-                $mail->addStringAttachment($outputPdf, 'Relatorio_' . date('Y-m-d') . '.pdf');
-
-                $mail->send();
-
-            } catch (Exception $e) {
-                error_log("Erro no envio de e-mail: {$mail->ErrorInfo}");
-            }
-        } else {
-            error_log("Não foi possível enviar o e-mail pois nenhum e-mail de consultor ou de fallback foi definido.");
-        }
-        
-    } else {
-        $response['message'] = "Erro ao salvar os dados.";
-    }
-    $stmt = null;
+if (
+    $payload['email'] === '' ||
+    $payload['telefone'] === '' ||
+    $payload['segmento'] === '' ||
+    ($payload['nome'] === '' && $payload['empresa'] === '')
+) {
+    http_response_code(422);
+    $response['message'] = 'Preencha todos os campos obrigatórios.';
+    echo json_encode($response);
+    exit;
 }
 
-$conn = null;
+if ($payload['nome'] === '' && $payload['empresa'] !== '') {
+    $payload['nome'] = 'Contato via formulário de consultoria';
+}
 
+$jsonPayload = json_encode($payload, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+
+if ($jsonPayload === false) {
+    http_response_code(500);
+    $response['message'] = 'Erro ao preparar os dados do webhook.';
+    echo json_encode($response);
+    exit;
+}
+
+$ch = curl_init($webhookUrl);
+curl_setopt_array($ch, [
+    CURLOPT_POST => true,
+    CURLOPT_POSTFIELDS => $jsonPayload,
+    CURLOPT_HTTPHEADER => [
+        'Content-Type: application/json',
+        'Content-Length: ' . strlen($jsonPayload),
+    ],
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_TIMEOUT => 15,
+]);
+
+$webhookResponse = curl_exec($ch);
+$curlError = curl_error($ch);
+$httpStatus = (int) curl_getinfo($ch, CURLINFO_HTTP_CODE);
+curl_close($ch);
+
+if ($webhookResponse === false || $curlError !== '') {
+    http_response_code(502);
+    $response['message'] = 'Não foi possível enviar os dados ao webhook.';
+    error_log('Erro webhook Weagles: ' . $curlError);
+    echo json_encode($response);
+    exit;
+}
+
+if ($httpStatus < 200 || $httpStatus >= 300) {
+    http_response_code(502);
+    $response['message'] = 'Webhook retornou erro ao receber os dados.';
+    error_log('Webhook Weagles respondeu com status ' . $httpStatus . ' e corpo: ' . $webhookResponse);
+    echo json_encode($response);
+    exit;
+}
+
+$response['success'] = true;
+$response['message'] = 'Dados enviados com sucesso.';
 
 echo json_encode($response);
 exit;

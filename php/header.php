@@ -1,20 +1,20 @@
 <header id="main-header">
     <div class="container-header">
         <div class="header-logo">
-            <a href="home.php">
-                <img src="../image/032469dd-5117-43d7-a40d-eeb32f25cab3.png" alt="WEAGLES" />
+            <a href="home.php" aria-label="WEAGLES">
+                <img src="../image/032469dd-5117-43d7-a40d-eeb32f25cab3.png" alt="WEAGLES">
             </a>
         </div>
-        
-        <nav class="menu">
-            <button class="menu-toggle" aria-label="Abrir menu">
+
+        <nav class="menu" aria-label="Principal">
+            <button class="menu-toggle" aria-label="Abrir menu" aria-expanded="false" type="button">
                 <i class="fa-solid fa-bars"></i>
             </button>
             <ul class="menu-links">
-                <li><a href="#inicio">Início</a></li>
-                <li><a href="#solucao">Solução</a></li>
-                <li><a href="#sobre">Sobre Nós</a></li>
-                <li><a href="faq.php">FAQ</a></li>
+                <li><a href="#programa">Programa</a></li>
+                <li><a href="#indicadores">Indicadores</a></li>
+                <li><a href="#cases">Cases</a></li>
+                <li><a href="#faq">FAQ</a></li>
             </ul>
         </nav>
 
@@ -27,13 +27,12 @@
             <?php else: ?>
                 <button id="login-btn" class="btn-destaque" type="button">Entrar</button>
             <?php endif; ?>
-            <button class="btn-conversao-extrema-sm abrir-modal-consultoria" type="button">Agendar Diagnóstico</button>
+            <button class="btn-conversao-extrema-sm abrir-modal-consultoria" type="button">Diagnóstico Gratuito</button>
         </div>
     </div>
 </header>
 
 <?php if (!isset($_SESSION['usuario_id'])): ?>
-    <!-- Modal de Login -->
     <div id="login-modal" class="modal" style="display:none;">
         <div class="modal-content">
             <span class="fechar" style="cursor:pointer;">&times;</span>
@@ -47,7 +46,7 @@
                 <div class="grupo-formulario">
                     <label for="senha">Senha</label>
                     <div class="password-container">
-                        <input type="password" id="senha" name="senha" placeholder="••••••••" required>
+                        <input type="password" id="senha" name="senha" placeholder="********" required>
                         <span class="password-toggle" onclick="togglePasswordVisibility('senha', this)">
                             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-eye"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
                         </span>
@@ -72,7 +71,6 @@
         </div>
     </div>
 
-    <!-- Modal de Cadastro -->
     <div id="cadastro-modal" class="modal" style="display:none;">
         <div class="modal-content">
             <span class="fechar-cadastro" style="cursor:pointer;">&times;</span>
@@ -103,7 +101,6 @@
         </div>
     </div>
 
-    <!-- Modais de Recuperação -->
     <div id="modal-esqueci-senha" class="modal" style="display: none;">
         <div class="modal-content">
             <span class="fechar" style="cursor:pointer;">&times;</span>

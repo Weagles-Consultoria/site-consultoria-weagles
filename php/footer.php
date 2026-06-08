@@ -2,23 +2,30 @@
     <div class="container footer-content">
         <div class="footer-info">
             <img src="../image/032469dd-5117-43d7-a40d-eeb32f25cab3.png" alt="Weagles Logo" class="footer-logo">
+            <p class="footer-tagline">Programa de Aceleração Comercial para times que querem bater meta todo mês.</p>
             <address class="footer-address">
-                <p><i class="fa-solid fa-location-dot"></i> Centro Empresarial Monte Alto - R. Dr. Raul da Rocha Medeiros, 1624</p>
-                <p>Centro, Monte Alto - SP, 13º andar | CEP: 15910-000</p>
+                <p><i class="fa-solid fa-location-dot"></i> Monte Alto - SP</p>
             </address>
             <div class="footer-contacts">
                 <a href="mailto:consultoriaweagles@gmail.com"><i class="fa-solid fa-envelope"></i> consultoriaweagles@gmail.com</a>
                 <a href="https://wa.me/5516997833173" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-whatsapp"></i> +55 16 99783-3173</a>
                 <a href="https://instagram.com/weagles_" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-instagram"></i> @weagles_</a>
             </div>
+            <nav class="footer-links" aria-label="Rodapé">
+                <a href="#programa">Programa</a>
+                <a href="#indicadores">Indicadores</a>
+                <a href="#cases">Cases</a>
+                <a href="#faq">FAQ</a>
+                <a href="#">Termos de Uso</a>
+                <a href="#">Política de Privacidade</a>
+            </nav>
         </div>
     </div>
     <div class="footer-bottom">
-        <p>&copy; <?php echo date('Y'); ?> Weagles Consultoria e Tecnologia. Todos os direitos reservados.</p>
+        <p>&copy; 2026 Weagles Consultoria e Tecnologia. Todos os direitos reservados.</p>
     </div>
 </footer>
 
-<!-- Widget independente do fluxo do footer -->
 <section id="weglinho-chat" class="weglinho-chat" aria-label="Chat com Weglinho" aria-hidden="true">
     <div class="bot-header">
         <div class="bot-avatar">
@@ -74,8 +81,15 @@
     filter: brightness(0) invert(1);
 }
 
+.footer-tagline {
+    max-width: 580px;
+    margin-bottom: 1rem;
+    color: #f1f1f1;
+    line-height: 1.7;
+}
+
 .footer-address {
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
     font-size: 0.95rem;
     font-style: normal;
     line-height: 1.8;
@@ -94,6 +108,7 @@
     display: flex;
     flex-direction: column;
     gap: 12px;
+    margin-bottom: 1.5rem;
 }
 
 .footer-contacts a {
@@ -110,8 +125,21 @@
     margin-right: 10px;
 }
 
-.footer-contacts a:hover {
+.footer-contacts a:hover,
+.footer-links a:hover {
     color: #fff;
+}
+
+.footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 18px;
+}
+
+.footer-links a {
+    color: #a0a0a0;
+    text-decoration: none;
+    transition: color 0.3s ease;
 }
 
 .footer-bottom {
@@ -300,11 +328,13 @@
         text-align: center;
     }
 
-    .footer-address {
+    .footer-address,
+    .footer-tagline {
         text-align: center;
     }
 
-    .footer-contacts a {
+    .footer-contacts a,
+    .footer-links {
         justify-content: center;
     }
 }
@@ -405,14 +435,6 @@ document.addEventListener('DOMContentLoaded', function () {
             event.target.style.display = 'none';
         }
     });
-
-    if (!document.getElementById('modal-consultoria-wizard')) {
-        document.querySelectorAll('.abrir-modal-consultoria').forEach(function (button) {
-            button.addEventListener('click', function () {
-                window.location.href = 'consultoria.php';
-            });
-        });
-    }
 
     fab.addEventListener('click', function () {
         toggleChat();
