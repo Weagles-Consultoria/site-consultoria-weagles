@@ -202,27 +202,32 @@ $metaPixelId = getenv('META_PIXEL_ID') ?: '';
             <div class="cases-grid">
                 <article class="case-card animate-on-scroll">
                     <div class="case-media">
-                        <video controls poster="../image/poster_kasa_langerie.jpg">
+                        <span class="case-chip">Case em vídeo</span>
+                        <video controls playsinline preload="metadata" poster="../image/poster_kasa_langerie.jpg">
                             <source src="../videos/relatoKasaLangeries.mp4" type="video/mp4">
                         </video>
                     </div>
                     <div class="case-copy">
+                        <span class="case-eyebrow">Varejo</span>
                         <h3>Kasa da Langerie</h3>
                         <p>Reorganizou o processo comercial e ganhou previsibilidade sobre atendimento, follow-up e conversão no varejo.</p>
                     </div>
                 </article>
                 <article class="case-card animate-on-scroll">
                     <div class="case-media">
-                        <video controls poster="../image/poster_porto_sono.jpg">
+                        <span class="case-chip">Case em vídeo</span>
+                        <video controls playsinline preload="metadata" poster="../image/poster_porto_sono.jpg">
                             <source src="../videos/relatoPortoSono.mp4" type="video/mp4">
                         </video>
                     </div>
                     <div class="case-copy">
+                        <span class="case-eyebrow">Indústria e varejo</span>
                         <h3>Porto Sono</h3>
                         <p>Melhorou a gestão comercial com acompanhamento de indicadores e clareza sobre o que cada etapa do funil precisava entregar.</p>
                     </div>
                 </article>
                 <article class="case-quote animate-on-scroll">
+                    <span class="case-chip">Case modelo</span>
                     <p>"Clínica de estética em Monte Alto aumentou o faturamento em X% em 60 dias após mapear os indicadores comerciais com a Weagles."</p>
                     <span>Modelo de case sem nome</span>
                 </article>
