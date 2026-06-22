@@ -247,10 +247,6 @@ $metaPixelId = getenv('META_PIXEL_ID') ?: '';
                             <span>empresas aceleradas</span>
                         </div>
                         <div>
-                            <strong>+3</strong>
-                            <span>cidades atendidas na região de Ribeirão Preto</span>
-                        </div>
-                        <div>
                             <strong>Todo mês</strong>
                             <span>times treinados batendo meta</span>
                         </div>
@@ -348,7 +344,7 @@ $metaPixelId = getenv('META_PIXEL_ID') ?: '';
                 <h2 class="section-title light">Pronto para descobrir onde sua empresa está perdendo venda?</h2>
                 <p>Diagnóstico comercial 1:1 com Vitor ou João. Zero custo. Vagas limitadas por semana.</p>
                 <button class="btn-conversao-extrema abrir-modal-consultoria" type="button">Quero meu diagnóstico gratuito</button>
-                <span>Dados protegidos · LGPD · Resposta em até 4h úteis</span>
+                <span>Dados protegidos · LGPD</span>
             </div>
         </section>
     </main>
