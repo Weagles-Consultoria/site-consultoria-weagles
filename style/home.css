@@ -444,9 +444,9 @@ body {
 
 .about-images img {
     width: 100%;
-    aspect-ratio: 4 / 5;
-    min-height: 280px;
-    max-height: 380px;
+    aspect-ratio: 3 / 5;
+    min-height: 360px;
+    max-height: 520px;
     border-radius: 24px;
     object-fit: cover;
     object-position: center;

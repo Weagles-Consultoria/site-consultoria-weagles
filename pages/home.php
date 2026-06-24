@@ -253,8 +253,8 @@ $metaPixelId = getenv('META_PIXEL_ID') ?: '';
                     </div>
                 </div>
                 <div class="about-images animate-on-scroll">
-                    <img src="../image/marketing.JPG" alt="Vitor Garbin">
-                    <img src="../image/ceo.jpg" alt="João, sócio da Weagles">
+                    <img src="../image/vitor.webp" alt="Vitor Garbin">
+                    <img src="../image/Joao.webp" alt="João, sócio da Weagles">
                 </div>
             </div>
         </section>
