@@ -12,6 +12,7 @@ $metaPixelId = getenv('META_PIXEL_ID') ?: '';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WEAGLES | Programa de Aceleração Comercial</title>
     <meta name="description" content="A Weagles mapeia os indicadores do seu funil comercial e cria um plano de ação semana a semana para seu time bater meta com previsibilidade.">
+    <link rel="icon" type="image/png" href="../image/favicon-weagles.png">
     <link rel="stylesheet" href="../style/reset1.css">
     <link rel="stylesheet" href="../style/login.css">
     <link rel="stylesheet" href="../style/home.css">

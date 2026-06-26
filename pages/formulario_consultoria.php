@@ -6,6 +6,7 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <title>Marcar Consultoria - WEAGLES</title>
+    <link rel="icon" type="image/png" href="../image/favicon-weagles.png">
     <link rel="stylesheet" href="../style/reset1.css">
     <link rel="stylesheet" href="../style/home.css">
     <link rel="stylesheet" href="../style/login.css">

@@ -8,6 +8,7 @@ if (session_status() === PHP_SESSION_NONE) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="../image/favicon-weagles.png">
     <link rel="stylesheet" href="../style/reset1.css">
     <link rel="stylesheet" href="../style/login.css">
     <link rel="stylesheet" href="../style/sobre_nos.css">
