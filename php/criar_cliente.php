@@ -5,7 +5,7 @@ header('Content-Type: application/json; charset=UTF-8');
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);
-    $response['message'] = 'Método não permitido.';
+    $response['message'] = 'Metodo nao permitido.';
     echo json_encode($response);
     exit;
 }
@@ -17,8 +17,9 @@ $payload = [
     'email' => trim($_POST['email'] ?? ''),
     'telefone' => trim($_POST['telefone'] ?? ''),
     'segmento' => trim($_POST['segmento'] ?? ($_POST['area'] ?? '')),
-    'cargo' => trim($_POST['cargo'] ?? 'Não informado'),
-    'time_comercial' => trim($_POST['faturamento'] ?? 'Não informado'),
+    'cargo' => trim($_POST['cargo'] ?? 'Nao informado'),
+    'faturamento' => trim($_POST['faturamento'] ?? 'Nao informado'),
+    'time_comercial' => trim($_POST['time_comercial'] ?? ($_POST['faturamento'] ?? 'Nao informado')),
     'mensagem' => trim($_POST['mensagem'] ?? ($_POST['descricao'] ?? 'Lead via landing page Weagles')),
     'empresa' => trim($_POST['razao'] ?? ''),
     'cnpj' => trim($_POST['cnpj'] ?? ''),
@@ -34,13 +35,13 @@ if (
     ($payload['nome'] === '' && $payload['empresa'] === '')
 ) {
     http_response_code(422);
-    $response['message'] = 'Preencha todos os campos obrigatórios.';
+    $response['message'] = 'Preencha todos os campos obrigatorios.';
     echo json_encode($response);
     exit;
 }
 
 if ($payload['nome'] === '' && $payload['empresa'] !== '') {
-    $payload['nome'] = 'Contato via formulário de consultoria';
+    $payload['nome'] = 'Contato via formulario de consultoria';
 }
 
 $jsonPayload = json_encode($payload, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
@@ -71,7 +72,7 @@ curl_close($ch);
 
 if ($webhookResponse === false || $curlError !== '') {
     http_response_code(502);
-    $response['message'] = 'Não foi possível enviar os dados ao webhook.';
+    $response['message'] = 'Nao foi possivel enviar os dados ao webhook.';
     error_log('Erro webhook Weagles: ' . $curlError);
     echo json_encode($response);
     exit;
