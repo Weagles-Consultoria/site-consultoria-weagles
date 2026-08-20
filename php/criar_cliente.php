@@ -67,7 +67,7 @@ if ($dadosFormulario['dor'] !== '') {
 
 $descricaoTexto .= "*📝 Mensagem:* " . $dadosFormulario['mensagem'];
 
-$mensagemGrupo = "## 📝 NOVO LEAD RECEBIDO DA IA\n---\n" . $descricaoTexto;
+$mensagemGrupo = "## 📝 NOVO LEAD RECEBIDO DA LP\n---\n" . $descricaoTexto;
 
 $payload = [
     'nome' => $dadosFormulario['nome'],
