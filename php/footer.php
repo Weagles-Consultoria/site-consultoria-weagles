@@ -3,6 +3,7 @@
         <div class="footer-info">
             <img src="../image/nova-logo-weagles.png" alt="Grupo Weagles" class="footer-logo">
             <p class="footer-tagline">Programa de Aceleração Comercial para times que querem bater meta todo mês.</p>
+            <p class="footer-tech-note">Conheça também a Weagles Tech, dedicada a IA aplicada e software para pequenos negócios. <a href="https://tech.weagles.com.br/" target="_blank" rel="noopener noreferrer">Acesse o site <span aria-hidden="true">&rarr;</span></a></p>
             <address class="footer-address">
                 <p><i class="fa-solid fa-location-dot"></i> Monte Alto - SP</p>
             </address>
@@ -85,6 +86,24 @@
     margin-bottom: 1rem;
     color: #f1f1f1;
     line-height: 1.7;
+}
+
+.footer-tech-note {
+    max-width: 580px;
+    margin: -0.3rem 0 1.5rem;
+    color: #858585;
+    font-size: 0.88rem;
+    line-height: 1.6;
+}
+
+.footer-tech-note a {
+    color: #b9d7ff;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.footer-tech-note a:hover {
+    color: #fff;
 }
 
 .footer-address {
