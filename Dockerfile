@@ -1,5 +1,4 @@
-FROM php:8.2-apache
-
+FROM php:8.2.35-apache
 # Install PostgreSQL client and PHP extensions
 RUN apt-get update && apt-get install -y \
     libpq-dev \
