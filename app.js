@@ -20,9 +20,9 @@
   }
 
   function initializePixel() {
-    if (!consent || !eligiblePixel()) return;
+    if (consent === false || !eligiblePixel()) return;
     if (!pixelInitialized) {
-      // Código base do Meta Pixel. A biblioteca só é solicitada após consentimento.
+      // A medição começa por padrão e é interrompida quando o visitante recusa.
       if (!window.fbq) {
         const n = window.fbq = function () { n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments); };
         if (!window._fbq) window._fbq = n;
@@ -47,7 +47,7 @@
   }
 
   function trackCustom(name, parameters) {
-    if (!consent || !eligiblePixel()) return;
+    if (consent === false || !eligiblePixel()) return;
     initializePixel();
     if (pixelInitialized) window.fbq('trackSingleCustom', config.metaPixelId, name, parameters);
   }
@@ -55,7 +55,7 @@
   window.WeaglesTracking = Object.freeze({
     formOpened(position) { trackCustom('FormOpen', {cta_position: position || 'pagina'}); },
     leadRecorded(leadId) {
-      if (!leadId || recordedLeads.has(leadId) || !consent || !eligiblePixel()) return;
+      if (!leadId || recordedLeads.has(leadId) || consent === false || !eligiblePixel()) return;
       initializePixel();
       if (pixelInitialized) {
         window.fbq('trackSingle', config.metaPixelId, 'Lead', {content_name: 'Cadastro Weagles'}, {eventID: leadId});
