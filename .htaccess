@@ -1,7 +1,8 @@
 RewriteEngine On
 
-# 1. Se acessar a raiz pura (/), vai para home.php
-RewriteRule ^$ pages/home.php [L]
+# A raiz serve a nova landing; as demais rotas existentes continuam disponíveis.
+RewriteRule ^$ index.html [L]
+RewriteRule ^api/leads$ api/leads.php [L]
 
 # 2. Se o arquivo solicitado existe fisicamente (CSS, JS, Imagens, etc), serve ele diretamente
 RewriteCond %{REQUEST_FILENAME} -f

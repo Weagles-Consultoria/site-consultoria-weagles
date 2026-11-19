@@ -1,0 +1,27 @@
+const {test}=require('node:test');
+const assert=require('node:assert/strict');
+const fs=require('node:fs');
+const vm=require('node:vm');
+const source=fs.readFileSync(require('node:path').join(__dirname,'../app.js'),'utf8');
+function setup({saved=null,host='weagles.com.br',brokenStorage=false,existingPixel=true}={}){
+  const elements={};const scripts=[];const calls=[];
+  const element=(dataset={})=>({dataset,hidden:true,handlers:{},addEventListener(name,fn){this.handlers[name]=fn},focus(){},pause(){this.paused=true}});
+  for(const id of ['cookie-banner','cookies-accept','cookies-reject','year'])elements[id]=element();
+  const cta=element({position:'abertura'});const video=element({testimonial:'porto'});const preferences=element();
+  const storage={value:saved&&JSON.stringify(saved),getItem(){if(brokenStorage)throw Error();return this.value},setItem(k,v){if(brokenStorage)throw Error();this.value=v}};
+  const window={WEAGLES_CONFIG:{whatsapp:'5516997833173',whatsappMessage:'Olá! Quero conversar.',pixelEnabled:true,metaPixelId:'1467056031365003',pixelAllowedHosts:['weagles.com.br']}};
+  if(existingPixel)window.fbq=(...args)=>calls.push(args);
+  const document={head:{appendChild(s){scripts.push(s)}},createElement(){return {}},getElementById(id){return elements[id]},querySelectorAll(sel){return sel==='[data-whatsapp]'?[cta]:sel==='video[data-testimonial]'?[video]:sel==='[data-cookie-settings]'?[preferences]:[]}};
+  vm.runInNewContext(source,{window,document,localStorage:storage,location:{hostname:host},Date,Set,JSON,encodeURIComponent});
+  return {elements,calls,scripts,cta,video,preferences,storage,window};
+}
+test('mede por padrão enquanto o aviso aguarda escolha',()=>{const x=setup();assert.equal(x.elements['cookie-banner'].hidden,false);assert.ok(x.calls.some(c=>c[2]==='PageView'));x.cta.handlers.click();assert.ok(x.calls.some(c=>c[2]==='WhatsAppClick'))});
+test('aceite emite uma única visita e clique personalizado, sem Lead',()=>{const x=setup();x.elements['cookies-accept'].handlers.click();x.elements['cookies-accept'].handlers.click();assert.equal(x.calls.filter(c=>c[0]==='trackSingle'&&c[2]==='PageView').length,1);x.cta.handlers.click();assert.equal(x.calls.filter(c=>c[0]==='trackSingleCustom'&&c[2]==='WhatsAppClick').length,1);assert.ok(!x.calls.some(c=>c.includes('Lead')))});
+test('rejeição interrompe eventos futuros e persiste a escolha',()=>{const x=setup();x.elements['cookies-reject'].handlers.click();assert.ok(x.calls.some(c=>c[0]==='consent'&&c[1]==='revoke'));const before=x.calls.length;x.cta.handlers.click();x.window.WeaglesTracking.leadRecorded('registro');assert.equal(x.calls.length,before);assert.equal(JSON.parse(x.storage.value).allowed,false);const next=setup({saved:JSON.parse(x.storage.value)});assert.equal(next.calls.length,0);assert.equal(next.elements['cookie-banner'].hidden,true)});
+test('consentimento válido é lembrado; domínio de prévia não mede',()=>{const saved={allowed:true,at:Date.now()};const x=setup({saved});assert.equal(x.elements['cookie-banner'].hidden,true);assert.ok(x.calls.some(c=>c[2]==='PageView'));const p=setup({saved,host:'127.0.0.1'});p.cta.handlers.click();assert.equal(p.calls.length,0)});
+test('consentimento expirado volta a ser solicitado',()=>{const x=setup({saved:{allowed:true,at:Date.now()-181*86400000}});assert.ok(x.calls.some(c=>c[2]==='PageView'));assert.equal(x.elements['cookie-banner'].hidden,false)});
+test('depoimento é contado uma vez; revogação interrompe novos eventos',()=>{const x=setup({saved:{allowed:true,at:Date.now()}});x.video.handlers.play();x.video.handlers.play();assert.equal(x.calls.filter(c=>c[2]==='TestimonialPlay').length,1);x.elements['cookies-reject'].handlers.click();assert.ok(x.calls.some(c=>c[0]==='consent'&&c[1]==='revoke'));const count=x.calls.length;x.cta.handlers.click();assert.equal(x.calls.length,count)});
+test('armazenamento bloqueado não quebra a página nem seus botões',()=>{const x=setup({brokenStorage:true});x.elements['cookies-accept'].handlers.click();assert.ok(x.calls.some(c=>c[2]==='PageView'));assert.match(x.cta.href,/wa.me/)});
+test('biblioteca externa é solicitada por padrão apenas uma vez',()=>{const x=setup({existingPixel:false});assert.equal(x.scripts.length,1);x.elements['cookies-accept'].handlers.click();assert.equal(x.scripts.length,1);assert.equal(x.scripts[0].src,'https://connect.facebook.net/en_US/fbevents.js');x.elements['cookies-accept'].handlers.click();assert.equal(x.scripts.length,1)});
+test('Lead exige registro confirmado e deduplica eventID sem exigir clique em aceitar',()=>{const x=setup();x.window.WeaglesTracking.leadRecorded('');assert.ok(!x.calls.some(c=>c[2]==='Lead'));x.window.WeaglesTracking.leadRecorded('registro-teste');x.window.WeaglesTracking.leadRecorded('registro-teste');x.window.WeaglesTracking.leadRecorded('registro-teste');const lead=x.calls.filter(c=>c[2]==='Lead');assert.equal(lead.length,1);assert.equal(lead[0][4].eventID,'registro-teste');assert.ok(!JSON.stringify(lead).includes('phone'))});
+test('aviso é genérico e política descreve a medição iniciada por padrão',()=>{const path=require('node:path');const html=fs.readFileSync(path.join(__dirname,'../index.html'),'utf8');const privacy=fs.readFileSync(path.join(__dirname,'../privacidade.html'),'utf8');assert.match(html,/Usamos cookies para melhorar sua experiência e nossos serviços/);assert.doesNotMatch(html,/Com sua autorização, usamos o Pixel da Meta/);assert.match(privacy,/carrega o Pixel da Meta por padrão/)});
